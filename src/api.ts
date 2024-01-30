@@ -5,3 +5,7 @@ const instance = axios.create({
 
 export const getRooms = () =>
   instance.get("rooms/").then((response) => response.data);
+
+//temp
+export const getRoom = () =>
+  instance.get(`rooms/1`).then((response) => response.data);
