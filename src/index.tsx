@@ -7,7 +7,6 @@ import theme from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const client = new QueryClient();
-q;
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

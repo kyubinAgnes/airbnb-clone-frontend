@@ -48,8 +48,9 @@ export default function Home() {
           <RoomSkeleton />
         </>
       ) : null}
-      {rooms.map((room) => (
+      {data?.map((room) => (
         <Room
+          key={room.pk}
           imageUrl={
             room.photos[0]?.file ??
             `https://source.unsplash.com/random/450x${450 + 450}`
