@@ -1,5 +1,6 @@
-import { QueryFunctionContext } from "@tanstack/react-query";
+import { QueryFunction, QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
+import { IRoomDetail } from "./types";
 const instance = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
 });
@@ -8,7 +9,9 @@ export const getRooms = () =>
   instance.get("rooms/").then((response) => response.data);
 
 //temp
-export const getRoom = ({ queryKey }: QueryFunctionContext) => {
+export const getRoom: QueryFunction<IRoomDetail> = ({
+  queryKey,
+}: QueryFunctionContext) => {
   const [_, roomPk] = queryKey;
-  instance.get(`rooms/${roomPk}`).then((response) => response.data);
+  return instance.get(`rooms/${roomPk}`).then((response) => response.data);
 };
