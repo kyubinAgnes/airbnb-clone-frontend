@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 import {
   Avatar,
   Box,
+  Container,
   Grid,
   GridItem,
   HStack,
@@ -69,7 +70,7 @@ export default function RoomDetail() {
       <HStack width={"40%"} justifyContent={"space-between"} mt={10}>
         <VStack alignItems={"flex-start"}>
           <Skeleton isLoaded={!isLoading} height={"30px"}>
-            <Heading fontSize={"2xl"}>
+            <Heading mb={5} fontSize={"2xl"}>
               House hosted by {data?.owner.name}
             </Heading>
           </Skeleton>
@@ -97,6 +98,29 @@ export default function RoomDetail() {
             </Text>
           </HStack>
         </Heading>
+        <Container mt={16} maxW="container.lg" marginX="none">
+          <Grid gap={10} templateColumns={"1fr 1fr"}>
+            {reviewsData?.map((review, index) => (
+              <VStack alignItems={"flex-start"} key={index}>
+                <HStack>
+                  <Avatar
+                    name={review.user.name}
+                    src={review.user.avatar}
+                    size="md"
+                  />
+                  <VStack spacing={0} alignItems={"flex-start"}>
+                    <Heading fontSize={"md"}>{review.user.name}</Heading>
+                    <HStack spacing={1}>
+                      <FaStar size="12px" />
+                      <Text>{review.rating}</Text>
+                    </HStack>
+                  </VStack>
+                </HStack>
+                <Text>{review.payload}</Text>
+              </VStack>
+            ))}
+          </Grid>
+        </Container>
       </Box>
     </Box>
   );
