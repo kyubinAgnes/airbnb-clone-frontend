@@ -8,7 +8,7 @@ export default function useUser() {
     queryFn: getMe,
   });
   return {
-    isLoading,
+    userLoading: isLoading,
     user: data,
     isLoggedIn: !isError,
   };
