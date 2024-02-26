@@ -4,7 +4,7 @@ import { IUser } from "../types";
 
 export default function useUser() {
   const { isLoading, data, isError } = useQuery<IUser>({
-    queryKey: [`me`],
+    queryKey: ["me"],
     queryFn: getMe,
   });
   return {

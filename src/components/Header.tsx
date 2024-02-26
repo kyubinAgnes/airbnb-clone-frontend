@@ -1,3 +1,4 @@
+import { FaAirbnb, FaMoon, FaSun } from "react-icons/fa";
 import {
   Avatar,
   Box,
@@ -16,11 +17,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { FaAirbnb, FaMoon, FaSun } from "react-icons/fa";
 import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 import useUser from "../lib/useUser";
 import { logOut } from "../api";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Header() {
   const { userLoading, isLoggedIn, user } = useUser();
@@ -38,6 +39,7 @@ export default function Header() {
   const logoColor = useColorModeValue("red.500", "red.200");
   const Icon = useColorModeValue(FaMoon, FaSun);
   const toast = useToast();
+  const queryClient = useQueryClient();
   const onLogOut = async () => {
     const toastId = toast({
       title: "Login out...",
@@ -45,23 +47,27 @@ export default function Header() {
       status: "loading",
       position: "bottom-right",
     });
-    /* const data = await logOut();
-    console.log(data); */
-    setTimeout(() => {
-      toast.update(toastId, {
-        status: "success",
-        title: "Done!",
-        description: "See you later!",
-      });
-    }, 5000);
+    await logOut();
+    queryClient.refetchQueries({ queryKey: ["me"] });
+    toast.update(toastId, {
+      status: "success",
+      title: "Done!",
+      description: "See you later!",
+    });
   };
   return (
-    <HStack
+    <Stack
       justifyContent={"space-between"}
+      alignItems="center"
       py={5}
-      px={{
-        sm: 10,
-        lg: 40,
+      px={40}
+      direction={{
+        sm: "column",
+        md: "row",
+      }}
+      spacing={{
+        sm: 4,
+        md: 0,
       }}
       borderBottomWidth={1}
     >
@@ -101,6 +107,6 @@ export default function Header() {
       </HStack>
       <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
       <SignUpModal isOpen={isSignUpOpen} onClose={onSignUpClose} />
-    </HStack>
+    </Stack>
   );
 }
