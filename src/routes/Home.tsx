@@ -1,8 +1,9 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid, useEditable } from "@chakra-ui/react";
 import Room from "../components/Room";
 import RoomSkeleton from "../components/RoomSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import { getRooms } from "../api";
+import { useEffect } from "react";
 
 interface IPhoto {
   pk: string;
