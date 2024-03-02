@@ -45,11 +45,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   } = useForm<IForm>();
   const toast = useToast();
   const queryClient = useQueryClient();
-  const mutation = useMutation<
-    IUsernameLoginSuccess,
-    IUsernameLoginError,
-    IUsernameLoginVariables
-  >(usernameLogIn, {
+  const mutation = useMutation({
+    mutationFn: usernameLogIn,
     onSuccess: () => {
       toast({
         title: "welcome back!",
@@ -60,6 +57,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       reset();
     },
   });
+
   const onSubmit = ({ username, password }: IForm) => {
     mutation.mutate({ username, password });
   };
